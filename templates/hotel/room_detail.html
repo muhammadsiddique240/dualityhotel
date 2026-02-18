@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Room Header -->
+<header class="position-relative" style="height: 60vh; overflow: hidden;">
+    {% if room.image_url %}
+    <img src="{{ room.image_url }}" class="w-100 h-100 object-fit-cover" alt="{{ room.name }}">
+    {% elif room.image %}
+    <img src="{{ room.image.url }}" class="w-100 h-100 object-fit-cover" alt="{{ room.name }}">
+    {% else %}
+    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+        class="w-100 h-100 object-fit-cover" alt="Default Room">
+    {% endif %}
+    <div class="position-absolute bottom-0 start-0 w-100 bg-gradient-to-t-transparent-black p-5"
+        style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
+        <div class="container">
+            <span class="badge bg-gold text-dark mb-2">{{ room.get_category_display }} Collection</span>
+            <h1 class="text-white display-4">{{ room.name }}</h1>
+            <h3 class="text-gold">{{ room.price_per_night|floatformat:0 }} PKR / Night</h3>
+        </div>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Room Details -->
+            <div class="col-lg-8 mb-5">
+                <h2 class="mb-4">Description</h2>
+                <div class="lead text-muted mb-5">
+                    {{ room.description|linebreaks }}
+                </div>
+
+                <!-- Inclusions -->
+                {% if room.inclusions %}
+                <div class="mb-5 p-4 bg-light rounded border">
+                    <h3 class="mb-3 text-gold">Package Inclusions</h3>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        {% for item in room.inclusions.split|join:","|make_list %}
+                        <!-- Simple split by comma logic for display if it was a list, but model has comma separated text -->
+                        <!-- Correct logic for comma separated string -->
+                        {% endfor %}
+                        {% with inclusions=room.inclusions %}
+                        {% for item in inclusions|slugify|make_list %}
+                        <!-- This is getting complicated in template, let's just output the text nicely or use split in view. 
+                                 For now, trusting the text format, but enhancing with icons. -->
+                        {% endfor %}
+                        {% endwith %}
+
+                        <!-- Cleaner approach: Just display the text block with items styled -->
+                        <p class="mb-0"><i class="fas fa-gift me-2 text-gold"></i> {{ room.inclusions }}</p>
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- Food Menu (Excluded) -->
+                {% if room.food_menu %}
+                <div class="mb-5">
+                    <h3 class="mb-4">In-Room Dining Menu <small class="text-muted fs-6">(Excluded from Room
+                            Rate)</small></h3>
+                    <div class="card border-0 shadow-sm bg-dark text-white">
+                        <div class="card-body p-4">
+                            <div class="text-light">
+                                {{ room.food_menu|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
+                <h3 class="mb-4">Room Amenities</h3>
+                <div class="row g-3 mb-5">
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-wifi text-gold me-3"></i>
+                            <span>High-speed WiFi</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-tv text-gold me-3"></i>
+                            <span>Smart TV</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-wind text-gold me-3"></i>
+                            <span>Air Conditioning</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-coffee text-gold me-3"></i>
+                            <span>Coffee Maker</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-bath text-gold me-3"></i>
+                            <span>Luxury Toiletries</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-shield text-gold me-3"></i>
+                            <span>In-room Safe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="col-lg-4">
+                <div class="card shadow-lg border-0 sticky-top" style="top: 100px;">
+                    <div class="card-header bg-dark text-white p-4">
+                        <h4 class="mb-0 text-center">Book This Room</h4>
+                        <p class="text-center text-gold mb-0 small">Best Rate Guarantee</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            {% if field.name != 'room' %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}"
+                                    class="form-label small text-muted text-uppercase fw-bold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                <div class="text-danger small mt-1">
+                                    {{ field.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% else %}
+                            {{ field }}
+                            {% endif %}
+                            {% endfor %}
+
+                            <div class="d-grid mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg">Confirmation Booking</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

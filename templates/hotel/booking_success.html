@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="text-center" data-aos="zoom-in">
+        <div class="display-1 text-gold mb-4">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h1 class="display-4 fw-bold mb-3">Booking Confirmed</h1>
+        <p class="lead text-muted mb-5">Thank you for choosing DualityHotel. Your reservation has been successfully
+            placed. We look forward to welcoming you.</p>
+        <a href="{% url 'home' %}" class="btn btn-outline-dark me-2">Back to Home</a>
+        <a href="{% url 'room_list' %}" class="btn btn-primary">Book Another Room</a>
+    </div>
+</div>
+{% endblock %}

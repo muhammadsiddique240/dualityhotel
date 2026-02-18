@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<header class="bg-dark text-white py-5 text-center">
+    <div class="container py-5">
+        <h1 class="display-4 text-gold">Gallery</h1>
+        <p class="lead">A Glimpse into Paradise</p>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4" data-masonry='{"percentPosition": true }'>
+            <div class="col-md-4 col-6" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+            <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+            <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+            <div class="col-md-4 col-6" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+            <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+            <div class="col-md-4 col-6" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    class="img-fluid rounded shadow-sm hover-scale mb-4" alt="Gallery">
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+    integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
+    async></script>
+{% endblock %}

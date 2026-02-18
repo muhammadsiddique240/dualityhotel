@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5 text-center"
+    style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+        <div class="card shadow-lg border-0" data-aos="zoom-in">
+            <div class="card-body p-5">
+                <div class="mb-4">
+                    <i class="fas fa-utensils fa-4x text-gold"></i>
+                </div>
+                <h1 class="display-4 text-gold mb-4">Order Received!</h1>
+                <p class="lead text-muted mb-4">Thank you for your order. Our kitchen is preparing your meal right now.
+                </p>
+                <p class="mb-4">It will be delivered to your room shortly.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'menu' %}" class="btn btn-outline-dark">Order More</a>
+                    <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

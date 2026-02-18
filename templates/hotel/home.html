@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<!-- Note: Using placeholder images. In production, these should be high-res hotel images. -->
+<section class="hero-slider"
+    style="background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="hero-title text-gold">DUALITY HOTEL</h1>
+        <p class="hero-subtitle">Experience Luxury Like Never Before</p>
+        <a href="{% url 'room_list' %}" class="btn btn-primary">Book Your Stay</a>
+    </div>
+</section>
+
+<!-- Introduction -->
+<section class="py-5 text-center bg-light">
+    <div class="container py-4" data-aos="fade-up">
+        <h2 class="mb-3">Welcome to Paradise</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p class="lead text-muted">Thinking of a perfect getaway? DualityHotel offers an escape into a world of
+                    comfort and elegance. Located in the heart of the city yet providing a serene environment, we are
+                    the perfect choice for your next vacation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Rooms -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="mb-2">Featured Rooms</h2>
+            <p class="text-muted">Choose from our selection of premium rooms</p>
+        </div>
+
+        <div class="row">
+            {% for room in featured_rooms %}
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card room-card h-100">
+                    {% if room.image_url %}
+                    <img src="{{ room.image_url }}" class="card-img-top" alt="{{ room.name }}">
+                    {% elif room.image %}
+                    <img src="{{ room.image.url }}" class="card-img-top" alt="{{ room.name }}">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        class="card-img-top" alt="Default Room">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ room.name }}</h5>
+                        <p class="card-text text-muted">{{ room.description|truncatewords:20 }}</p>
+                        <p class="price-tag">{{ room.price_per_night|floatformat:0 }} PKR / Night</p>
+                        <a href="{% url 'room_detail' room.id %}" class="btn btn-outline-dark btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No rooms available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'room_list' %}" class="btn btn-outline-dark">View All Rooms</a>
+        </div>
+    </div>
+</section>
+
+<!-- Amenities -->
+<section class="py-5 bg-dark text-white">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="text-gold">Our Amenities</h2>
+            <p>We provide world-class facilities for our guests</p>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-4 mb-4" data-aos="fade-up">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-wifi amenity-icon"></i>
+                    <h4>High-Speed Wifi</h4>
+                    <p class="text-muted">Stay connected with our complimentary high-speed internet access throughout
+                        the hotel.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-swimming-pool amenity-icon"></i>
+                    <h4>Infinity Pool</h4>
+                    <p class="text-muted">Relax and unwind in our rooftop infinity pool with breathtaking city views.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-utensils amenity-icon"></i>
+                    <h4>Fine Dining</h4>
+                    <p class="text-muted">Experience culinary delights prepared by our world-renowned chefs.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-spa amenity-icon"></i>
+                    <h4>Luxury Spa</h4>
+                    <p class="text-muted">Rejuvenate your body and mind with our exclusive spa treatments.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-dumbbell amenity-icon"></i>
+                    <h4>Fitness Center</h4>
+                    <p class="text-muted">Keep up with your fitness routine in our state-of-the-art gym.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-4 border border-secondary">
+                    <i class="fas fa-concierge-bell amenity-icon"></i>
+                    <h4>24/7 Service</h4>
+                    <p class="text-muted">Our dedicated staff is available around the clock to assist you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-5" data-aos="fade-up">What Our Guests Say</h2>
+        <div class="row justify-content-center" data-aos="fade-up">
+            <div class="col-md-8">
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <blockquote class="blockquote">
+                                <p class="mb-4">"Absolutely stunning hotel! The service was impeccable and the room was
+                                    pure luxury. Will definitely be coming back."</p>
+                                <footer class="blockquote-footer">John Doe</footer>
+                            </blockquote>
+                        </div>
+                        <div class="carousel-item">
+                            <blockquote class="blockquote">
+                                <p class="mb-4">"The best hotel experience I've ever had. The amenities are top-notch
+                                    and the staff went above and beyond."</p>
+                                <footer class="blockquote-footer">Jane Smith</footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

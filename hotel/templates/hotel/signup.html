@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-5" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card shadow-lg border-0" data-aos="fade-up">
+                    <div class="card-body p-5">
+                        <h2 class="text-center text-gold mb-4">Create Account</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field }} <!-- Widget class already set in forms.py -->
+                                {% if field.help_text %}
+                                <div class="form-text small">{{ field.help_text|safe }}</div>
+                                {% endif %}
+                                {% if field.errors %}
+                                <div class="text-danger small mt-1">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 mt-3">Sign Up</button>
+                        </form>
+                        <hr class="my-4">
+                        <p class="text-center mb-0">Already have an account? <a href="{% url 'login' %}"
+                                class="text-gold">Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
