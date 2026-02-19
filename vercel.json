@@ -1,13 +1,15 @@
 {
-  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput",
-  "devCommand": "python manage.py runserver",
-  "env": {
-    "PYTHON_VERSION": "3.12"
-  },
-  "functions": {
-    "api/**/*.py": {
-      "memory": 1024,
-      "maxDuration": 60
+  "version": 2,
+  "builds": [
+    {
+      "src": "dualityhotel/wsgi.py",
+      "use": "@vercel/python"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dualityhotel/wsgi.py"
+    }
+  ]
 }
