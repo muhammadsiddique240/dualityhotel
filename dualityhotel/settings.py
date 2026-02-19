@@ -24,9 +24,14 @@ import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-(w-+_pg6!4g(dt9!-hry(nl323r=!6+_fv04az=-)b)5ec*#z=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+# Vercel handling
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
 
 
 # Application definition
